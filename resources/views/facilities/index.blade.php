@@ -16,19 +16,33 @@
 <style>
 
 body{
-background:#0B1020;
+    background:#0B1020;
 }
 
 .main-card{
+    background:#111827;
+    border-radius:22px;
+    border:none;
+    box-shadow:0 20px 40px rgba(0,0,0,.25);
+}
 
-background:#111827;
+.search-box{
+    width:320px;
+    background:#1F2937;
+    border:none;
+    color:white;
+    border-radius:14px;
+    padding:14px 18px;
+}
 
-border-radius:22px;
+.search-box::placeholder{
+    color:#9CA3AF;
+}
 
-border:none;
-
-box-shadow:0 20px 40px rgba(0,0,0,.25);
-
+.search-box:focus{
+    background:#1F2937;
+    color:white;
+    box-shadow:0 0 18px rgba(124,58,237,.45);
 }
 
 .btn-add{
@@ -39,210 +53,122 @@ align-items:center;
 
 justify-content:center;
 
-gap:10px;
+gap:12px;
+
+padding:12px 24px;
 
 background:linear-gradient(135deg,#6D28D9,#8B5CF6);
 
-color:#fff;
+border-radius:14px;
 
-padding:14px 28px;
-
-border-radius:16px;
+color:white;
 
 font-weight:600;
 
-font-size:18px;
-
-line-height:1;
-
 text-decoration:none;
 
-transition:.3s;
+width:auto;
 
-box-shadow:0 10px 25px rgba(124,58,237,.35);
-
-}
-
-.btn-add:hover{
-
-transform:translateY(-3px);
-
-color:#fff;
-
-box-shadow:0 15px 35px rgba(124,58,237,.45);
-
-}
-
-.btn-add i{
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-font-size:20px;
-
-line-height:1;
-
-margin:0;
-
-padding:0;
+height:52px;
 
 }
 
 .btn-add:hover{
 
-transform:translateY(-3px);
-
 color:white;
 
-box-shadow:0 15px 30px rgba(124,58,237,.4);
+transform:translateY(-2px);
 
-}
-
-.search-box{
-
-background:#1F2937;
-
-border:none;
-
-color:white;
-
-border-radius:14px;
-
-padding:14px 18px;
-
-}
-
-.search-box:focus{
-
-background:#1F2937;
-
-color:white;
-
-box-shadow:0 0 18px rgba(124,58,237,.45);
+box-shadow:0 12px 25px rgba(124,58,237,.35);
 
 }
 
 .table{
-
-color:white;
-
-margin-bottom:0;
-
+    color:white;
+    margin-bottom:0;
 }
 
 .table thead{
-
-background:#1E293B;
-
+    background:#1E293B;
 }
 
 .table thead th{
-
-padding:18px;
-
-border:none;
-
-font-weight:600;
-
+    border:none;
+    padding:18px;
+    font-weight:600;
 }
 
 .table tbody td{
-
-padding:18px;
-
-background:#111827;
-
-border-color:#1F2937;
-
-vertical-align:middle;
-
+    padding:18px;
+    border-color:#1F2937;
+    background:#111827;
+    vertical-align:middle;
 }
 
 .table tbody tr{
-
-transition:.25s;
-
+    transition:.25s;
 }
 
 .table tbody tr:hover{
-
-background:#1A2335;
-
+    background:#1A2335;
 }
 
 .facility-icon{
 
 width:50px;
-
 height:50px;
-
 border-radius:15px;
-
 background:linear-gradient(135deg,#6D28D9,#8B5CF6);
-
 display:flex;
-
 align-items:center;
-
 justify-content:center;
-
 margin-right:15px;
 
 }
 
 .status-available{
 
+display:inline-flex;
+align-items:center;
+gap:6px;
 background:#10B981;
-
-padding:7px 16px;
-
+padding:8px 16px;
 border-radius:30px;
-
 font-size:13px;
+font-weight:600;
 
 }
 
 .status-maintenance{
 
+display:inline-flex;
+align-items:center;
+gap:6px;
 background:#EF4444;
-
-padding:7px 16px;
-
+padding:8px 16px;
 border-radius:30px;
-
 font-size:13px;
+font-weight:600;
 
 }
 
 .action-btn{
 
-width:40px;
-
-height:40px;
-
+width:42px;
+height:42px;
 display:inline-flex;
-
 align-items:center;
-
 justify-content:center;
-
 border-radius:12px;
-
 text-decoration:none;
-
-margin-right:6px;
-
 transition:.3s;
+margin-right:6px;
 
 }
 
 .edit-btn{
 
 background:#F59E0B;
-
 color:white;
 
 }
@@ -250,9 +176,7 @@ color:white;
 .delete-btn{
 
 background:#DC2626;
-
 color:white;
-
 border:none;
 
 }
@@ -260,32 +184,7 @@ border:none;
 .action-btn:hover{
 
 transform:translateY(-2px);
-
 color:white;
-
-}
-
-.btn-add .icon{
-
-width:40px;
-
-height:40px;
-
-border-radius:50%;
-
-background:white;
-
-color:#7C3AED;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-font-size:18px;
-
-flex-shrink:0;
 
 }
 
@@ -305,16 +204,32 @@ flex-shrink:0;
 
 <div class="main-card p-4">
 
-<div class="row mb-4">
+<div class="row mb-4 align-items-center">
 
-<div class="col-md-5">
+    <div class="col-md-4">
 
-<input
-id="search"
-class="form-control search-box"
-placeholder="Search facility...">
+        <input
+            id="search"
+            class="form-control search-box"
+            placeholder="Search facility...">
 
-</div>
+    </div>
+
+    <div class="col-md-8 text-end">
+
+        <a href="{{ route('facilities.create') }}" class="btn-add">
+
+            <span class="icon">
+
+                <i class="fas fa-plus"></i>
+
+            </span>
+
+            Add Facility
+
+        </a>
+
+    </div>
 
 </div>
 
@@ -328,35 +243,15 @@ id="facilityTable">
 
 <tr>
 
-<th width="70">
+<th width="70">#</th>
 
-#
+<th>Facility</th>
 
-</th>
+<th>Type</th>
 
-<th>
+<th>Status</th>
 
-Facility
-
-</th>
-
-<th>
-
-Type
-
-</th>
-
-<th>
-
-Status
-
-</th>
-
-<th width="170">
-
-Action
-
-</th>
+<th width="170">Action</th>
 
 </tr>
 
@@ -370,11 +265,11 @@ Action
 
 <td>
 
-<span class="fw-bold">
+<strong>
 
 #{{ $facility->id }}
 
-</span>
+</strong>
 
 </td>
 
@@ -424,7 +319,7 @@ Sports Facility
 
 <span class="status-available">
 
-<i class="fas fa-circle-check me-1"></i>
+<i class="fas fa-circle-check"></i>
 
 Available
 
@@ -434,7 +329,7 @@ Available
 
 <span class="status-maintenance">
 
-<i class="fas fa-screwdriver-wrench me-1"></i>
+<i class="fas fa-screwdriver-wrench"></i>
 
 Maintenance
 
@@ -485,11 +380,11 @@ class="action-btn delete-btn">
 
 <i class="fas fa-building fa-4x text-secondary mb-3"></i>
 
-<h5 class="text-secondary">
+<h4 class="mt-3 text-white">
 
 No Facilities Available
 
-</h5>
+</h4>
 
 <p class="text-secondary">
 
