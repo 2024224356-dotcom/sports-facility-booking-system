@@ -1,6 +1,6 @@
 # Sports Facility Booking Management System
 
-A web-based Sports Facility Booking Management System developed using **Laravel 12** for the IMS564 Web Development group assignment.
+A web-based Sports Facility Booking Management System developed using **Laravel 12** for the IMS566 Web Development group assignment.
 
 ---
 
