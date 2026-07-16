@@ -7,7 +7,11 @@ RUN apt-get update && apt-get install -y \
     zip \
     curl \
     libzip-dev \
-    && docker-php-ext-install zip pdo pdo_mysql
+    libpng-dev \
+    libjpeg62-turbo-dev \
+    libfreetype6-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd zip pdo pdo_mysql
 
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
