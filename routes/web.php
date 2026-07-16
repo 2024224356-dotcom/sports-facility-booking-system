@@ -59,16 +59,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::resource('operating-hours', OperatingHourController::class);
 
-    // Reports
-    Route::get('/reports', [ReportController::class, 'index'])
-        ->name('reports.index');
-
-    Route::get('/reports/pdf', [ReportController::class, 'exportPdf'])
-        ->name('reports.pdf');
-
-    Route::get('/reports/excel', [ReportController::class, 'exportExcel'])
-        ->name('reports.excel');
-
     // Booking Approval
     Route::patch('/bookings/{booking}/approve', [BookingController::class, 'approve'])
         ->name('bookings.approve');

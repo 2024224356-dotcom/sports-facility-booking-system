@@ -112,6 +112,62 @@ transform:translateY(-3px);
 
 <div class="form-card">
 
+@if(session('error'))
+
+<script>
+
+document.addEventListener("DOMContentLoaded",function(){
+
+Swal.fire({
+
+icon:"error",
+
+title:"Booking Conflict",
+
+text:"{{ session('error') }}",
+
+background:"#111827",
+
+color:"#fff",
+
+confirmButtonColor:"#DC2626"
+
+});
+
+});
+
+</script>
+
+@endif
+
+@if($errors->any())
+
+<script>
+
+document.addEventListener("DOMContentLoaded",function(){
+
+Swal.fire({
+
+icon:"error",
+
+title:"Validation Error",
+
+html:`{!! implode('<br>',$errors->all()) !!}`,
+
+background:"#111827",
+
+color:"#fff",
+
+confirmButtonColor:"#DC2626"
+
+});
+
+});
+
+</script>
+
+@endif
+
 <form method="POST" action="{{ route('bookings.store') }}">
 
 @csrf
@@ -126,6 +182,20 @@ Facility
 name="facility_id"
 class="form-select"
 required>
+
+<option value="">Select Facility</option>
+
+@foreach($facilities as $facility)
+
+<option
+value="{{ $facility->id }}"
+{{ old('facility_id')==$facility->id ? 'selected' : '' }}>
+
+{{ $facility->facility_name }}
+
+</option>
+
+@endforeach
 
 <option value="">
 
@@ -155,6 +225,7 @@ Booking Date
 type="date"
 name="booking_date"
 class="form-control"
+value="{{ old('booking_date') }}"
 required>
 
 <label class="form-label">
@@ -167,6 +238,7 @@ Start Time
 type="time"
 name="start_time"
 class="form-control"
+value="{{ old('start_time') }}"
 required>
 
 <label class="form-label">
@@ -179,6 +251,7 @@ End Time
 type="time"
 name="end_time"
 class="form-control"
+value="{{ old('end_time') }}"
 required>
 
 <label class="form-label">
@@ -190,7 +263,7 @@ Purpose
 <textarea
 name="purpose"
 rows="5"
-required></textarea>
+required>{{ old('purpose') }}</textarea>
 
 <button
 type="submit"

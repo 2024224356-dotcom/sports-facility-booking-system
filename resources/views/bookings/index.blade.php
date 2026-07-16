@@ -326,16 +326,19 @@ Completed
 
 <form
 action="{{ route('bookings.approve',$booking) }}"
-method="POST">
+method="POST"
+class="approveForm">
 
 @csrf
 
 @method('PATCH')
 
 <button
-class="btn btn-success btn-sm rounded-3">
+type="button"
+class="btn btn-danger btn-sm rounded-3 rejectBooking"
+data-id="{{ $booking->id }}">
 
-<i class="fas fa-check"></i>
+<i class="fas fa-times"></i>
 
 </button>
 
@@ -356,7 +359,8 @@ data-bs-target="#reject{{ $booking->id }}">
 
 <form
 action="{{ route('bookings.complete',$booking) }}"
-method="POST">
+method="POST"
+class="completeForm">
 
 @csrf
 
@@ -388,69 +392,6 @@ No Action
 </tr>
 
 </tr>
-
-<div
-class="modal fade"
-id="reject{{ $booking->id }}"
-tabindex="-1">
-
-<div class="modal-dialog">
-
-<div class="modal-content bg-dark text-white">
-
-<form
-action="{{ route('bookings.reject',$booking) }}"
-method="POST">
-
-@csrf
-
-@method('PATCH')
-
-<div class="modal-header border-secondary">
-
-<h5>Reject Booking</h5>
-
-</div>
-
-<div class="modal-body">
-
-<label>Reason</label>
-
-<textarea
-name="remarks"
-class="form-control"
-required></textarea>
-
-</div>
-
-<div class="modal-footer border-secondary">
-
-<button
-type="button"
-class="btn btn-secondary"
-data-bs-dismiss="modal">
-
-Cancel
-
-</button>
-
-<button
-type="submit"
-class="btn btn-danger">
-
-Reject
-
-</button>
-
-</div>
-
-</form>
-
-</div>
-
-</div>
-
-</div>
 
 @empty
 
@@ -508,7 +449,7 @@ row.style.display=row.innerText.toLowerCase().includes(value)
 
 <script>
 
-document.querySelectorAll(".deleteForm").forEach(function(form){
+document.querySelectorAll(".approveForm").forEach(function(form){
 
 form.addEventListener("submit",function(e){
 
@@ -516,9 +457,95 @@ e.preventDefault();
 
 Swal.fire({
 
-title:"Cancel Booking?",
+title:"Approve Booking?",
 
-text:"Your booking request will be cancelled.",
+text:"This booking will be approved.",
+
+icon:"question",
+
+background:"#111827",
+
+color:"#fff",
+
+confirmButtonColor:"#10B981",
+
+cancelButtonColor:"#6B7280",
+
+confirmButtonText:"Approve",
+
+cancelButtonText:"Cancel",
+
+reverseButtons:true
+
+}).then((result)=>{
+
+if(result.isConfirmed){
+
+form.submit();
+
+}
+
+});
+
+});
+
+});
+
+document.querySelectorAll(".completeForm").forEach(function(form){
+
+form.addEventListener("submit",function(e){
+
+e.preventDefault();
+
+Swal.fire({
+
+title:"Complete Booking?",
+
+text:"Mark this booking as completed?",
+
+icon:"question",
+
+background:"#111827",
+
+color:"#fff",
+
+confirmButtonColor:"#3B82F6",
+
+cancelButtonColor:"#6B7280",
+
+confirmButtonText:"Complete",
+
+cancelButtonText:"Cancel",
+
+reverseButtons:true
+
+}).then((result)=>{
+
+if(result.isConfirmed){
+
+form.submit();
+
+}
+
+});
+
+});
+
+});
+
+document.querySelectorAll(".rejectBooking").forEach(function(button){
+
+button.addEventListener("click",function(){
+
+let bookingId=this.dataset.id;
+
+Swal.fire({
+
+title:"Reject Booking",
+
+input:"textarea",
+
+inputPlaceholder:"Enter rejection reason...",
 
 icon:"warning",
 
@@ -526,19 +553,45 @@ background:"#111827",
 
 color:"#fff",
 
+showCancelButton:true,
+
+confirmButtonText:"Reject",
+
 confirmButtonColor:"#DC2626",
 
 cancelButtonColor:"#6B7280",
 
-confirmButtonText:"Yes, Cancel",
+inputValidator:(value)=>{
 
-cancelButtonText:"Keep Booking",
+if(!value){
 
-reverseButtons:true
+return "Reason is required.";
+
+}
+
+}
 
 }).then((result)=>{
 
 if(result.isConfirmed){
+
+let form=document.createElement("form");
+
+form.method="POST";
+
+form.action="/bookings/"+bookingId+"/reject";
+
+form.innerHTML=`
+
+<input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+<input type="hidden" name="_method" value="PATCH">
+
+<input type="hidden" name="remarks" value="${result.value}">
+
+`;
+
+document.body.appendChild(form);
 
 form.submit();
 
