@@ -100,7 +100,7 @@ class UserController extends Controller
 
             'email' => 'required|email|unique:users,email,' . $user->id,
 
-            'phone' => 'nullable|max:20',
+            'phone_number' => 'nullable|max:20',
 
             'role' => 'required|in:admin,student',
 
@@ -114,7 +114,7 @@ class UserController extends Controller
 
             'email' => $request->email,
 
-            'phone' => $request->phone,
+            'phone_number' => $request->phone_number,
 
             'role' => $request->role,
 

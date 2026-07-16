@@ -1,9 +1,70 @@
 <section>
 
+<style>
+
+.form-control{
+
+background:#1F2937 !important;
+
+border:1px solid #374151 !important;
+
+color:#fff !important;
+
+border-radius:12px;
+
+padding:12px 15px;
+
+}
+
+.form-control:focus{
+
+background:#1F2937 !important;
+
+color:#fff !important;
+
+border-color:#7C3AED !important;
+
+box-shadow:0 0 0 .2rem rgba(124,58,237,.25) !important;
+
+}
+
+.form-control::placeholder{
+
+color:#9CA3AF !important;
+
+}
+
+.btn-purple{
+
+background:linear-gradient(135deg,#6D28D9,#8B5CF6);
+
+border:none;
+
+padding:12px 24px;
+
+border-radius:12px;
+
+color:#fff;
+
+font-weight:600;
+
+transition:.3s;
+
+}
+
+.btn-purple:hover{
+
+transform:translateY(-2px);
+
+color:#fff;
+
+}
+
+</style>
+
 <form method="POST" action="{{ route('profile.update') }}">
 
 @csrf
-
 @method('PATCH')
 
 <div class="row">
@@ -66,8 +127,7 @@ required>
 
 <div class="mt-3">
 
-<button
-class="btn-purple">
+<button class="btn-purple">
 
 <i class="fas fa-save"></i>
 

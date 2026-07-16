@@ -92,7 +92,15 @@ required>
 
 <label class="form-label">
 
+@if($user->role == 'admin')
+
+Staff ID
+
+@else
+
 Student ID
+
+@endif
 
 </label>
 
@@ -131,7 +139,7 @@ Phone
 
 <input
 type="text"
-name="phone"
+name="phone_number"
 class="form-control"
 value="{{ old('phone',$user->phone) }}">
 

@@ -183,20 +183,6 @@ name="facility_id"
 class="form-select"
 required>
 
-<option value="">Select Facility</option>
-
-@foreach($facilities as $facility)
-
-<option
-value="{{ $facility->id }}"
-{{ old('facility_id')==$facility->id ? 'selected' : '' }}>
-
-{{ $facility->facility_name }}
-
-</option>
-
-@endforeach
-
 <option value="">
 
 Select Facility

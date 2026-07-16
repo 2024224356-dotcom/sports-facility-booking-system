@@ -317,18 +317,6 @@ Main Menu
 
 <li>
 
-<a href="{{ route('reports.index') }}" class="{{ request()->routeIs('reports.*') ? 'active' : '' }}">
-
-<i class="fas fa-chart-column"></i>
-
-<span>Reports</span>
-
-</a>
-
-</li>
-
-<li>
-
 <a href="{{ route('calendar.index') }}" class="{{ request()->routeIs('calendar.*') ? 'active' : '' }}">
 
 <i class="fas fa-calendar-days"></i>
@@ -474,8 +462,7 @@ Sports Facility Booking System
 
 <p style="font-size:14px;color:#94A3B8;">
 
-Cybernetics International College of Technology
-
+Universiti Teknologi MARA (UiTM)
 </p>
 
 @endif
