@@ -324,56 +324,56 @@ Completed
 
 <div class="d-flex gap-2">
 
-<form
-action="{{ route('bookings.approve',$booking) }}"
-method="POST"
-class="approveForm">
+    {{-- Approve --}}
+    <form
+        action="{{ route('bookings.approve',$booking) }}"
+        method="POST"
+        class="approveForm">
 
-@csrf
+        @csrf
+        @method('PATCH')
 
-@method('PATCH')
+        <button
+            type="submit"
+            class="btn btn-success btn-sm rounded-3">
 
-<button
-type="button"
-class="btn btn-danger btn-sm rounded-3 rejectBooking"
-data-id="{{ $booking->id }}">
+            <i class="fas fa-check"></i>
 
-<i class="fas fa-times"></i>
+        </button>
 
-</button>
+    </form>
 
-</form>
+    {{-- Reject --}}
+    <button
+        type="button"
+        class="btn btn-danger btn-sm rounded-3 rejectBooking"
+        data-id="{{ $booking->id }}">
 
-<button
-class="btn btn-danger btn-sm rounded-3"
-data-bs-toggle="modal"
-data-bs-target="#reject{{ $booking->id }}">
+        <i class="fas fa-times"></i>
 
-<i class="fas fa-times"></i>
-
-</button>
+    </button>
 
 </div>
 
 @elseif($booking->booking_status=='approved')
 
 <form
-action="{{ route('bookings.complete',$booking) }}"
-method="POST"
-class="completeForm">
+    action="{{ route('bookings.complete',$booking) }}"
+    method="POST"
+    class="completeForm">
 
-@csrf
+    @csrf
+    @method('PATCH')
 
-@method('PATCH')
+    <button
+        type="submit"
+        class="btn btn-primary btn-sm rounded-3">
 
-<button
-class="btn btn-primary btn-sm rounded-3">
+        <i class="fas fa-flag-checkered"></i>
 
-<i class="fas fa-flag-checkered"></i>
+        Complete
 
-Complete
-
-</button>
+    </button>
 
 </form>
 
@@ -388,8 +388,6 @@ No Action
 @endif
 
 </td>
-
-</tr>
 
 </tr>
 
@@ -535,71 +533,77 @@ form.submit();
 
 document.querySelectorAll(".rejectBooking").forEach(function(button){
 
-button.addEventListener("click",function(){
+    button.addEventListener("click",function(){
 
-let bookingId=this.dataset.id;
+        let bookingId=this.dataset.id;
 
-Swal.fire({
+        Swal.fire({
 
-title:"Reject Booking",
+            title:"Reject Booking",
 
-input:"textarea",
+            input:"textarea",
 
-inputPlaceholder:"Enter rejection reason...",
+            inputPlaceholder:"Enter rejection reason...",
 
-icon:"warning",
+            inputAttributes:{
+                autocapitalize:"off"
+            },
 
-background:"#111827",
+            icon:"warning",
 
-color:"#fff",
+            background:"#111827",
 
-showCancelButton:true,
+            color:"#fff",
 
-confirmButtonText:"Reject",
+            showCancelButton:true,
 
-confirmButtonColor:"#DC2626",
+            confirmButtonColor:"#DC2626",
 
-cancelButtonColor:"#6B7280",
+            cancelButtonColor:"#6B7280",
 
-inputValidator:(value)=>{
+            confirmButtonText:"Reject",
 
-if(!value){
+            cancelButtonText:"Cancel",
 
-return "Reason is required.";
+            inputValidator:(value)=>{
 
-}
+                if(!value){
 
-}
+                    return "Please enter a rejection reason.";
 
-}).then((result)=>{
+                }
 
-if(result.isConfirmed){
+            }
 
-let form=document.createElement("form");
+        }).then((result)=>{
 
-form.method="POST";
+            if(result.isConfirmed){
 
-form.action="/bookings/"+bookingId+"/reject";
+                const form=document.createElement("form");
 
-form.innerHTML=`
+                form.method="POST";
 
-<input type="hidden" name="_token" value="{{ csrf_token() }}">
+                form.action="/bookings/"+bookingId+"/reject";
 
-<input type="hidden" name="_method" value="PATCH">
+                form.innerHTML=`
 
-<input type="hidden" name="remarks" value="${result.value}">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-`;
+                    <input type="hidden" name="_method" value="PATCH">
 
-document.body.appendChild(form);
+                    <input type="hidden" name="remarks" value="${result.value}">
 
-form.submit();
+                `;
 
-}
+                document.body.appendChild(form);
 
-});
+                form.submit();
 
-});
+            }
+
+        });
+
+    });
 
 });
 
